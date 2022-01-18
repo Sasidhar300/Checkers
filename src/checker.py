@@ -30,9 +30,36 @@ class CheckersGame () :
             self.isWon = 'white'
         elif countw == 0:
             self.isWon = 'red'
+            
+            
     def changeTurn(self) :
         if self.whoseMove == "white":
             self.whoseMove = "red"
         elif self.whoseMove == "red":
-            self.whoseMove = "white"    
+            self.whoseMove = "white"  
+            
+            
+    def move(self, move) :
+        pmove = self.parseMove(move)
+        for i in range(len(pmove)-1):
+            (y,x) = (pmove[i])
+            (y2,x2) = (pmove[i+1])
+            a = self.board[y][x]
+            if self.coins[self.board[y][x]] == 'white checker' :
+                if y2 == 0:
+                    a = 3
+            elif self.coins[self.board[y][x]] == 'red checker':
+                if y2 == 7:
+                    a = 4  
+            if abs(y2-y) == 1 and abs(x2-x) == 1:
+                self.board[y2][x2] = a
+                self.board[y][x] = 0
+                
+            elif abs(y2-y) == 2 and abs(x2-x) == 2:
+                (y1,x1) = (int((y+y2)/2), int((x+x2)/2))
+                self.board[y2][x2] = a
+                self.board[y][x] = 0
+                self.board[y1][x1] = 0
+        self.changeTurn()
+        self.checkWinner()
         
