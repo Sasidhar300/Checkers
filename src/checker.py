@@ -63,3 +63,58 @@ class CheckersGame () :
         self.changeTurn()
         self.checkWinner()
         
+        def isValidMove(self, move) : 
+        if self.isWon == 0:
+            pmove = self.parseMove(move)
+            (y,x) = pmove[0]
+            pos = self.board[y][x]
+            wmove = self.whoseMove         
+            if self.coins[pos][:3] != self.whoseMove[:3]:
+                return False
+            else:
+                for i in range(len(pmove)-1):
+                    (y,x) = (pmove[i])
+                    (y2,x2) = (pmove[i+1])
+                    if (self.board[y2][x2] == 0 or ((y2,x2) in pmove)) and ((pos == 3) or (pos == 4)):  
+                        
+                        if abs(y2-y) == 1 and abs(x2-x) == 1:
+                            continue
+                        elif abs(y2-y) == 2 and abs(x2-x) == 2:
+                            (y1,x1) = (int((y+y2)/2), int((x+x2)/2))
+                            if (self.board[y1][x1] != 0) and (self.coins[self.board[y1][x1]][:3] !=  self.whoseMove[:3]):
+                                continue
+                            else:
+                                return False
+                        else:
+                            return False
+                    elif (self.board[y2][x2] == 0) and (pos == 1):
+                        
+                        if (y-y2 == 1) and (abs(x2-x) == 1):
+                            continue
+                        elif (y-y2 == 2) and abs(x2-x) == 2:
+                            (y1,x1) = (int((y+y2)/2), int((x+x2)/2))
+                            if (self.board[y1][x1] != 0) and (self.coins[self.board[y1][x1]][:3] !=  self.whoseMove[:3]):
+                                continue
+                            else:
+                                return False
+                        else:
+                            return False
+                    elif (self.board[y2][x2] == 0) and (pos == 2):
+                        
+                        if y2-y == 1 and abs(x2-x) == 1:
+                            continue
+                        elif (y2-y == 2) and (abs(x2-x) == 2):
+                            (y1,x1) = (int((y+y2)/2), int((x+x2)/2))
+                            if (self.board[y1][x1] != 0) and (self.coins[self.board[y1][x1]][:3] !=  self.whoseMove[:3]):
+                                continue
+                            else:
+                                return False
+                        else:
+                            return False
+                        
+                    else:
+                        return False
+                return True
+        else:
+            return False
+        
