@@ -117,4 +117,25 @@ class CheckersGame () :
                 return True
         else:
             return False
+      
+     def __str__ (self) :
+        out = "  0 1 2 3 4 5 6 7 \n  ╔═╤═╤═╤═╤═╤═╤═╤═╗\n"
+        i = 0
+        for row in self.board :
+            out += f"{str(i)}║"
+            j = 0
+            for item in row :
+                if item == 0:
+                    out += "░" if (i + j) % 2 == 0 else " "
+                elif item >= 1 and item <= 4:
+                    out += ["○", "●", "♔", "♚"][item-1]
+                out += "│"
+                j += 1
+            out = out[:-1]
+            out += f"║{str(i)}\n ╟─┼─┼─┼─┼─┼─┼─┼─╢\n"
+            i += 1
+        out = out[:-18]
+        out += "╚═╧═╧═╧═╧═╧═╧═╧═╝\n  0 1 2 3 4 5 6 7 \n"
+        return out
+      
         
